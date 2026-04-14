@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kadibs Hub — Ottawa's Local Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --blue-light: #3BAAFF;
+  --blue-mid: #1877F2;
+  --blue-deep: #0A52C4;
+  --dark: #1A2235;
+  --dark2: #2D3A52;
+  --gray: #F4F6FA;
+  --gray2: #E8ECF4;
+  --gray3: #B0BAD0;
+  --white: #FFFFFF;
+  --green: #18C97A;
+  --amber: #F5A623;
+  --red: #E84545;
+  --purple: #7C5CBF;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 2px 16px rgba(10,82,196,0.08);
+  --shadow-md: 0 4px 24px rgba(10,82,196,0.13);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: #F0F3FA; color: var(--dark); min-height: 100vh; }
+h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+input, select, textarea { font-family: 'Nunito', sans-serif; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--gray3); border-radius: 3px; }
+
+/* VIEWS */
+.view { display: none; } .view.active { display: block; }
+
+/* ===================== NAV ===================== */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray2);
+  padding: 0 24px;
+  display: flex; align-items: center; gap: 16px;
+  height: 64px;
+  box-shadow: 0 1px 8px rgba(10,82,196,0.06);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; }
+.nav-logo svg { height: 36px; width: 36px; }
+.nav-logo-text { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); letter-spacing: -0.3px; }
+.nav-search {
+  flex: 1; max-width: 460px;
+  display: flex; align-items: center;
+  background: var(--gray); border: 1.5px solid var(--gray2);
+  border-radius: 100px; padding: 0 16px; gap: 8px;
+}
+.nav-search input { border: none; background: transparent; outline: none; font-size: 14px; color: var(--dark); width: 100%; padding: 9px 0; }
+.nav-search svg { color: var(--gray3); flex-shrink: 0; }
+.nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav-link { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--dark2); transition: background 0.15s; background: none; border: none; }
+.nav-link:hover { background: var(--gray); }
+.nav-link.active { color: var(--blue-mid); }
+.btn-post { background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); color: #fff; border: none; border-radius: 100px; padding: 9px 20px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px; transition: opacity 0.15s, transform 0.1s; }
+.btn-post:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-login { border: 1.5px solid var(--blue-mid); color: var(--blue-mid); background: transparent; border-radius: 100px; padding: 8px 18px; font-size: 14px; font-weight: 700; transition: all 0.15s; }
+.btn-login:hover { background: var(--blue-mid); color: #fff; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800; font-size: 14px; flex-shrink: 0; cursor: pointer; border: none; }
+
+/* ===================== HERO ===================== */
+.hero {
+  background: linear-gradient(135deg, #0A1628 0%, #0D2460 40%, #1455B8 100%);
+  padding: 72px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 70% 30%, rgba(59,170,255,0.18) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 20% 70%, rgba(24,119,242,0.15) 0%, transparent 60%);
+}
+.hero-content { position: relative; max-width: 720px; margin: 0 auto; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(59,170,255,0.15); border: 1px solid rgba(59,170,255,0.3); color: var(--blue-light); border-radius: 100px; padding: 6px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px; }
+.hero h1 span { background: linear-gradient(90deg, var(--blue-light), #7FC6FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 18px; color: rgba(255,255,255,0.72); line-height: 1.6; margin-bottom: 36px; }
+.hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+.btn-hero-primary { background: linear-gradient(135deg, var(--blue-light), var(--blue-mid)); color: #fff; border: none; border-radius: 100px; padding: 14px 32px; font-size: 16px; font-weight: 700; transition: all 0.2s; box-shadow: 0 4px 20px rgba(59,170,255,0.35); }
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59,170,255,0.4); }
+.btn-hero-secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1.5px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 14px 32px; font-size: 16px; font-weight: 700; transition: all 0.2s; }
+.btn-hero-secondary:hover { background: rgba(255,255,255,0.18); }
+.hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+.hero-stat { text-align: center; }
+.hero-stat-num { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: #fff; }
+.hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+
+/* ===================== MAIN LAYOUT ===================== */
+.main-wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.section-title { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 4px; }
+.section-sub { font-size: 14px; color: var(--gray3); }
+
+/* ===================== TABS ===================== */
+.tabs-bar { background: var(--white); border-bottom: 1px solid var(--gray2); position: sticky; top: 64px; z-index: 90; }
+.tabs-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; gap: 0; align-items: center; }
+.tab-btn { padding: 16px 20px; font-size: 14px; font-weight: 700; color: var(--gray3); border: none; background: none; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 8px; transition: all 0.15s; white-space: nowrap; }
+.tab-btn.active { color: var(--blue-mid); border-bottom-color: var(--blue-mid); }
+.tab-btn:hover { color: var(--dark); }
+.tab-icon { width: 20px; height: 20px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; }
+
+/* ===================== FILTERS ===================== */
+.filters-row { padding: 20px 0 0; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.filter-select { background: var(--white); border: 1.5px solid var(--gray2); border-radius: 100px; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--dark2); appearance: none; cursor: pointer; outline: none; }
+.filter-select:focus { border-color: var(--blue-mid); }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--gray2); border-radius: 100px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--dark2); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.chip.active { background: var(--blue-mid); border-color: var(--blue-mid); color: #fff; }
+.chip:hover:not(.active) { border-color: var(--blue-mid); color: var(--blue-mid); }
+
+/* ===================== GRID ===================== */
+.listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 24px 0 48px; }
+.card {
+  background: var(--white); border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--gray2); transition: all 0.2s; cursor: pointer;
+  display: flex; flex-direction: column;
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: rgba(24,119,242,0.2); }
+.card-img { height: 180px; background: var(--gray); position: relative; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.card-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+.card-badge { position: absolute; top: 10px; left: 10px; background: rgba(10,10,30,0.7); color: #fff; border-radius: 6px; padding: 3px 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; backdrop-filter: blur(4px); }
+.card-badge.product { background: rgba(24,119,242,0.85); }
+.card-badge.service { background: rgba(124,92,191,0.85); }
+.card-badge.learning { background: rgba(24,201,122,0.85); }
+.card-fav { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: transform 0.15s; }
+.card-fav:hover { transform: scale(1.15); }
+.card-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; }
+.card-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 4px; line-height: 1.3; }
+.card-seller { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.seller-avatar-sm { width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 10px; font-weight: 800; flex-shrink: 0; }
+.seller-name { font-size: 12px; color: var(--gray3); font-weight: 600; }
+.card-location { font-size: 12px; color: var(--gray3); display: flex; align-items: center; gap: 4px; margin-bottom: 10px; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+.tag { background: var(--gray); color: var(--dark2); border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 600; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.card-price { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--dark); }
+.card-price span { font-size: 12px; font-weight: 500; color: var(--gray3); }
+.card-rating { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: var(--dark2); }
+.stars { color: var(--amber); font-size: 12px; }
+
+/* ===================== AREAS SECTION ===================== */
+.areas-section { padding: 40px 0; }
+.areas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 20px; }
+.area-card { background: var(--white); border: 1.5px solid var(--gray2); border-radius: var(--radius); padding: 16px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.area-card:hover, .area-card.active { border-color: var(--blue-mid); background: rgba(24,119,242,0.04); }
+.area-card:hover .area-icon, .area-card.active .area-icon { transform: scale(1.1); }
+.area-icon { font-size: 28px; margin-bottom: 8px; transition: transform 0.15s; }
+.area-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+.area-count { font-size: 11px; color: var(--gray3); margin-top: 2px; }
+
+/* ===================== CATEGORIES BANNER ===================== */
+.cat-banner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; }
+.cat-card { border-radius: var(--radius); padding: 28px; position: relative; overflow: hidden; cursor: pointer; transition: transform 0.2s; min-height: 140px; display: flex; flex-direction: column; justify-content: flex-end; }
+.cat-card:hover { transform: translateY(-3px); }
+.cat-card.products { background: linear-gradient(135deg, #0A52C4, #1877F2); }
+.cat-card.services { background: linear-gradient(135deg, #4A3B8C, #7C5CBF); }
+.cat-card.learning { background: linear-gradient(135deg, #0F8A58, #18C97A); }
+.cat-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+.cat-card::after { content: ''; position: absolute; top: 20px; right: 20px; width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+.cat-emoji { font-size: 32px; margin-bottom: 10px; }
+.cat-label { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: #fff; }
+.cat-sub { font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+.cat-arrow { position: absolute; top: 20px; right: 20px; color: rgba(255,255,255,0.6); font-size: 20px; }
+
+/* ===================== SIDEBAR LAYOUT ===================== */
+.content-with-sidebar { display: grid; grid-template-columns: 260px 1fr; gap: 28px; padding: 24px 0; }
+.sidebar { position: sticky; top: 130px; height: fit-content; }
+.sidebar-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray2); padding: 20px; margin-bottom: 16px; }
+.sidebar-title { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray3); margin-bottom: 14px; }
+.sidebar-option { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--dark2); border-radius: 6px; transition: color 0.15s; }
+.sidebar-option:hover { color: var(--blue-mid); }
+.sidebar-option.selected { color: var(--blue-mid); }
+.sidebar-count { font-size: 12px; color: var(--gray3); background: var(--gray); border-radius: 100px; padding: 2px 8px; }
+.price-range { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.price-input { border: 1.5px solid var(--gray2); border-radius: 8px; padding: 8px 10px; font-size: 13px; width: 90px; outline: none; font-family: 'Nunito', sans-serif; }
+.price-input:focus { border-color: var(--blue-mid); }
+
+/* ===================== SELLER PROFILE ===================== */
+.seller-hero { background: linear-gradient(135deg, #0A1628, #1455B8); padding: 40px 24px; }
+.seller-info { max-width: 1280px; margin: 0 auto; display: flex; align-items: flex-end; gap: 24px; }
+.seller-avatar-lg { width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 36px; font-weight: 800; border: 4px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+.seller-details { flex: 1; }
+.seller-details h2 { font-size: 28px; font-weight: 800; color: #fff; }
+.seller-details p { color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 4px; }
+.seller-meta { display: flex; gap: 20px; margin-top: 12px; }
+.seller-meta-item { font-size: 13px; color: rgba(255,255,255,0.6); display: flex; align-items: center; gap: 4px; }
+.seller-meta-item strong { color: #fff; }
+.seller-actions { display: flex; gap: 10px; }
+.btn-contact { background: var(--blue-light); color: #fff; border: none; border-radius: 100px; padding: 10px 22px; font-size: 14px; font-weight: 700; }
+.btn-follow { background: rgba(255,255,255,0.12); color: #fff; border: 1px solid rgba(255,255,255,0.25); border-radius: 100px; padding: 10px 22px; font-size: 14px; font-weight: 700; }
+.verified-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(24,201,122,0.2); color: #18C97A; border-radius: 6px; padding: 3px 10px; font-size: 12px; font-weight: 700; margin-left: 10px; }
+
+/* ===================== MODAL ===================== */
+.modal-overlay { position: fixed; inset: 0; background: rgba(10,18,35,0.65); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 24px; backdrop-filter: blur(4px); }
+.modal { background: var(--white); border-radius: 20px; width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.modal-header { padding: 28px 32px 20px; border-bottom: 1px solid var(--gray2); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-size: 22px; font-weight: 800; }
+.modal-close { width: 34px; height: 34px; border-radius: 50%; border: none; background: var(--gray); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--dark2); cursor: pointer; }
+.modal-body { padding: 24px 32px 32px; }
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 13px; font-weight: 700; color: var(--dark2); margin-bottom: 6px; }
+.form-input { width: 100%; border: 1.5px solid var(--gray2); border-radius: 10px; padding: 11px 14px; font-size: 14px; outline: none; transition: border 0.15s; font-family: 'Nunito', sans-serif; }
+.form-input:focus { border-color: var(--blue-mid); }
+.form-select { width: 100%; border: 1.5px solid var(--gray2); border-radius: 10px; padding: 11px 14px; font-size: 14px; outline: none; transition: border 0.15s; font-family: 'Nunito', sans-serif; appearance: none; background: #fff; }
+.form-textarea { width: 100%; border: 1.5px solid var(--gray2); border-radius: 10px; padding: 11px 14px; font-size: 14px; outline: none; resize: vertical; min-height: 90px; font-family: 'Nunito', sans-serif; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.btn-full { width: 100%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); color: #fff; border: none; border-radius: 100px; padding: 13px; font-size: 16px; font-weight: 700; margin-top: 8px; transition: opacity 0.15s; }
+.btn-full:hover { opacity: 0.9; }
+.form-divider { text-align: center; font-size: 13px; color: var(--gray3); margin: 16px 0; position: relative; }
+.form-divider::before, .form-divider::after { content: ''; position: absolute; top: 50%; width: 38%; height: 1px; background: var(--gray2); }
+.form-divider::before { left: 0; } .form-divider::after { right: 0; }
+.modal-tabs { display: flex; border-bottom: 1px solid var(--gray2); }
+.modal-tab { flex: 1; padding: 14px; text-align: center; font-size: 14px; font-weight: 700; color: var(--gray3); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; }
+.modal-tab.active { color: var(--blue-mid); border-bottom-color: var(--blue-mid); }
+.upload-zone { border: 2px dashed var(--gray2); border-radius: var(--radius); padding: 32px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.upload-zone:hover { border-color: var(--blue-mid); background: rgba(24,119,242,0.03); }
+.upload-icon { font-size: 36px; margin-bottom: 10px; }
+.upload-text { font-size: 14px; color: var(--dark2); font-weight: 600; }
+.upload-sub { font-size: 12px; color: var(--gray3); margin-top: 4px; }
+.type-selector { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+.type-option { border: 2px solid var(--gray2); border-radius: 10px; padding: 14px 10px; text-align: center; cursor: pointer; transition: all 0.15s; }
+.type-option.selected { border-color: var(--blue-mid); background: rgba(24,119,242,0.06); }
+.type-option-icon { font-size: 24px; margin-bottom: 6px; }
+.type-option-label { font-size: 12px; font-weight: 700; color: var(--dark2); }
+
+/* ===================== TOAST ===================== */
+.toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--dark); color: #fff; border-radius: 100px; padding: 12px 24px; font-size: 14px; font-weight: 600; z-index: 999; transition: transform 0.3s; display: flex; align-items: center; gap: 8px; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ===================== DETAIL PAGE ===================== */
+.detail-grid { display: grid; grid-template-columns: 1fr 360px; gap: 32px; padding: 32px 0 64px; }
+.detail-img { border-radius: var(--radius); overflow: hidden; height: 360px; background: var(--gray); display: flex; align-items: center; justify-content: center; font-size: 80px; margin-bottom: 20px; }
+.detail-img img { width: 100%; height: 100%; object-fit: cover; }
+.detail-title { font-size: 30px; font-weight: 800; color: var(--dark); margin-bottom: 10px; }
+.detail-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.detail-desc { font-size: 15px; color: var(--dark2); line-height: 1.7; }
+.contact-card { background: var(--white); border: 1px solid var(--gray2); border-radius: var(--radius); padding: 24px; position: sticky; top: 130px; }
+.contact-price { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--dark); margin-bottom: 6px; }
+.contact-price span { font-size: 14px; font-weight: 500; color: var(--gray3); }
+.btn-contact-main { width: 100%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); color: #fff; border: none; border-radius: 100px; padding: 14px; font-size: 16px; font-weight: 700; margin-top: 16px; transition: opacity 0.15s; }
+.btn-contact-main:hover { opacity: 0.9; }
+.btn-save { width: 100%; background: var(--gray); color: var(--dark2); border: none; border-radius: 100px; padding: 12px; font-size: 15px; font-weight: 700; margin-top: 10px; transition: background 0.15s; }
+.btn-save:hover { background: var(--gray2); }
+
+/* ===================== EMPTY STATE ===================== */
+.empty-state { text-align: center; padding: 80px 24px; }
+.empty-icon { font-size: 64px; margin-bottom: 16px; }
+.empty-title { font-size: 22px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+.empty-sub { font-size: 15px; color: var(--gray3); }
+
+/* ===================== FOOTER ===================== */
+footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 48px 24px 32px; margin-top: 48px; }
+.footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+.footer-brand { }
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.footer-logo-text { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: #fff; }
+.footer-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.55); }
+.footer-col-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #fff; margin-bottom: 14px; }
+.footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 9px; transition: color 0.15s; cursor: pointer; }
+.footer-link:hover { color: var(--blue-light); }
+.footer-bottom { max-width: 1280px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* ===================== PROFILE PAGE ===================== */
+.profile-grid { display: grid; grid-template-columns: 300px 1fr; gap: 28px; padding: 32px 0 64px; }
+.profile-sidebar-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray2); padding: 28px; text-align: center; }
+.profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-light), var(--blue-deep)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 30px; font-weight: 800; margin: 0 auto 14px; }
+.profile-name { font-size: 20px; font-weight: 800; color: var(--dark); }
+.profile-type { font-size: 13px; color: var(--gray3); margin-top: 4px; }
+.profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+.profile-stat { background: var(--gray); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.profile-stat-num { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); }
+.profile-stat-label { font-size: 11px; color: var(--gray3); margin-top: 2px; }
+.profile-tabs { display: flex; border-bottom: 1px solid var(--gray2); margin-bottom: 24px; }
+.profile-tab { padding: 12px 20px; font-size: 14px; font-weight: 700; color: var(--gray3); cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.15s; }
+.profile-tab.active { color: var(--blue-mid); border-bottom-color: var(--blue-mid); }
+.btn-edit-profile { width: 100%; background: var(--gray); border: none; border-radius: 100px; padding: 10px; font-size: 14px; font-weight: 700; color: var(--dark2); margin-top: 16px; transition: background 0.15s; }
+.btn-edit-profile:hover { background: var(--gray2); }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cat-banner { grid-template-columns: 1fr; }
+  .content-with-sidebar { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .detail-grid { grid-template-columns: 1fr; }
+  .profile-grid { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  nav { gap: 10px; }
+  .nav-search { display: none; }
+  .hero { padding: 48px 20px 56px; }
+  .hero-stats { gap: 24px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .type-selector { grid-template-columns: repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<nav>
+  <div class="nav-logo" onclick="showView('home')" style="cursor:pointer">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg1" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3BAAFF"/>
+          <stop offset="100%" stop-color="#0A52C4"/>
+        </linearGradient>
+      </defs>
+      <path d="M8 32 L20 8 L32 32" fill="none" stroke="url(#lg1)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M14 22 L26 22" fill="none" stroke="url(#lg1)" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-logo-text">Kadibs Hub</span>
+  </div>
+
+  <div class="nav-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    <input id="searchInput" type="text" placeholder="Search products, services, skills..." oninput="handleSearch(this.value)"/>
+  </div>
+
+  <div class="nav-links">
+    <button class="nav-link" onclick="showView('browse')">Browse</button>
+    <button class="nav-link" onclick="showView('sellers')">Sellers</button>
+    <div id="navAuthButtons">
+      <button class="btn-login" onclick="openModal('login')">Log in</button>
+    </div>
+    <div id="navUserArea" style="display:none; align-items:center; gap:10px;">
+      <button class="btn-post" onclick="openModal('post')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Post
+      </button>
+      <button class="avatar" id="navAvatar" onclick="showView('profile')">JD</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================== TABS ============================== -->
+<div class="tabs-bar" id="tabsBar" style="display:none;">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="setTab('all', this)">
+      <span>All Listings</span>
+    </button>
+    <button class="tab-btn" onclick="setTab('product', this)">
+      <span class="tab-icon" style="background:#E8F0FE;">📦</span> Products
+    </button>
+    <button class="tab-btn" onclick="setTab('service', this)">
+      <span class="tab-icon" style="background:#F0EAFA;">🛠️</span> Services
+    </button>
+    <button class="tab-btn" onclick="setTab('learning', this)">
+      <span class="tab-icon" style="background:#E8FAF3;">🎓</span> Learning
+    </button>
+    <button class="tab-btn" onclick="setTab('seller', this)" id="sellersTabBtn" style="display:none;">
+      <span class="tab-icon" style="background:#FFF5E8;">👤</span> Sellers
+    </button>
+  </div>
+</div>
+
+<!-- ============================== HOME VIEW ============================== -->
+<div class="view active" id="view-home">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">📍 Ottawa, Ontario · Canada</div>
+      <h1>Find Local <span>Products, Services</span> & Skills</h1>
+      <p>Discover what Ottawa businesses and individuals have to offer — from everyday products to expert services and skill-building courses.</p>
+      <div class="hero-cta">
+        <button class="btn-hero-primary" onclick="showView('browse')">Explore Listings</button>
+        <button class="btn-hero-secondary" onclick="openModal('signup')">Join as a Seller</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-num">1,240+</div><div class="hero-stat-label">Active Listings</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">380+</div><div class="hero-stat-label">Local Sellers</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">18</div><div class="hero-stat-label">Ottawa Areas</div></div>
+        <div class="hero-stat"><div class="hero-stat-num">4.8★</div><div class="hero-stat-label">Avg Rating</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrap">
+    <!-- Category Banner -->
+    <div class="cat-banner" style="margin-top:36px;">
+      <div class="cat-card products" onclick="setTabAndBrowse('product')">
+        <div class="cat-arrow">→</div>
+        <div class="cat-emoji">📦</div>
+        <div class="cat-label">Products</div>
+        <div class="cat-sub">520+ items available</div>
+      </div>
+      <div class="cat-card services" onclick="setTabAndBrowse('service')">
+        <div class="cat-arrow">→</div>
+        <div class="cat-emoji">🛠️</div>
+        <div class="cat-label">Services</div>
+        <div class="cat-sub">380+ providers nearby</div>
+      </div>
+      <div class="cat-card learning" onclick="setTabAndBrowse('learning')">
+        <div class="cat-arrow">→</div>
+        <div class="cat-emoji">🎓</div>
+        <div class="cat-label">Learning</div>
+        <div class="cat-sub">340+ courses & materials</div>
+      </div>
+    </div>
+
+    <!-- Ottawa Areas -->
+    <div class="areas-section">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div><div class="section-title">Browse by Area</div><div class="section-sub">Find listings near your Ottawa neighbourhood</div></div>
+        <button class="chip" onclick="showView('browse')">View all areas →</button>
+      </div>
+      <div class="areas-grid" id="homeAreasGrid"></div>
+    </div>
+
+    <!-- Featured Listings -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+      <div><div class="section-title">Featured Near You</div><div class="section-sub">Top-rated listings in Ottawa</div></div>
+      <button class="chip" onclick="showView('browse')">See all →</button>
+    </div>
+    <div class="listings-grid" id="homeFeaturedGrid"></div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:32px;width:32px;">
+            <path d="M8 32 L20 8 L32 32" fill="none" stroke="#3BAAFF" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M14 22 L26 22" fill="none" stroke="#3BAAFF" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <span class="footer-logo-text">Kadibs Hub</span>
+        </div>
+        <div class="footer-desc">Ottawa's local marketplace for products, services, and skills. Connecting communities across the National Capital Region.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Explore</div>
+        <div class="footer-link" onclick="setTabAndBrowse('product')">Products</div>
+        <div class="footer-link" onclick="setTabAndBrowse('service')">Services</div>
+        <div class="footer-link" onclick="setTabAndBrowse('learning')">Learning</div>
+        <div class="footer-link" onclick="showView('sellers')">Find Sellers</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Sellers</div>
+        <div class="footer-link" onclick="openModal('signup')">Create Account</div>
+        <div class="footer-link" onclick="openModal('post')">Post a Listing</div>
+        <div class="footer-link">Pricing Plans</div>
+        <div class="footer-link">Seller Guide</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Areas</div>
+        <div class="footer-link">Downtown Ottawa</div>
+        <div class="footer-link">Kanata</div>
+        <div class="footer-link">Barrhaven</div>
+        <div class="footer-link">Gloucester</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Kadibs Hub. All rights reserved. Ottawa, Ontario, Canada.</span>
+      <span>Privacy · Terms · Contact</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================== BROWSE VIEW ============================== -->
+<div class="view" id="view-browse">
+  <div class="main-wrap">
+    <div class="filters-row" id="browseFilters">
+      <select class="filter-select" onchange="filterByArea(this.value)" id="areaSelect">
+        <option value="all">📍 All Areas</option>
+      </select>
+      <select class="filter-select" onchange="filterBySort(this.value)">
+        <option value="recent">Most Recent</option>
+        <option value="rating">Top Rated</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+      </select>
+      <div id="quickChips" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+    </div>
+
+    <div class="content-with-sidebar">
+      <div class="sidebar">
+        <div class="sidebar-card">
+          <div class="sidebar-title">Location</div>
+          <div id="sidebarAreas"></div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-title">Price Range</div>
+          <div class="price-range">
+            <input type="number" class="price-input" placeholder="Min $" id="priceMin" oninput="filterByPrice()"/>
+            <span style="color:var(--gray3);">—</span>
+            <input type="number" class="price-input" placeholder="Max $" id="priceMax" oninput="filterByPrice()"/>
+          </div>
+        </div>
+        <div class="sidebar-card">
+          <div class="sidebar-title">Category Tags</div>
+          <div id="sidebarTags"></div>
+        </div>
+      </div>
+      <div>
+        <div id="browseMeta" style="font-size:14px;color:var(--gray3);font-weight:600;padding:4px 0 0;"></div>
+        <div class="listings-grid" id="browseGrid"></div>
+        <div id="browseEmpty" class="empty-state" style="display:none;">
+          <div class="empty-icon">🔍</div>
+          <div class="empty-title">No listings found</div>
+          <div class="empty-sub">Try adjusting your filters or search terms</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== SELLERS VIEW ============================== -->
+<div class="view" id="view-sellers">
+  <div class="main-wrap" style="padding-top:32px;padding-bottom:64px;">
+    <div class="section-title" style="margin-bottom:4px;">Ottawa Sellers & Businesses</div>
+    <div class="section-sub" style="margin-bottom:24px;">Connect with local entrepreneurs and professionals</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;" id="sellersGrid"></div>
+  </div>
+</div>
+
+<!-- ============================== DETAIL VIEW ============================== -->
+<div class="view" id="view-detail">
+  <div class="main-wrap">
+    <button onclick="showView('browse')" style="display:flex;align-items:center;gap:6px;padding:14px 0;font-size:14px;font-weight:600;color:var(--blue-mid);background:none;border:none;">← Back to listings</button>
+    <div class="detail-grid" id="detailContent"></div>
+  </div>
+</div>
+
+<!-- ============================== PROFILE VIEW ============================== -->
+<div class="view" id="view-profile">
+  <div class="main-wrap">
+    <div class="profile-grid">
+      <div>
+        <div class="profile-sidebar-card">
+          <div class="profile-avatar" id="profileAvatarLg">JD</div>
+          <div class="profile-name" id="profileName">Jane Doe</div>
+          <div class="profile-type" id="profileType">Individual Seller · Downtown Ottawa</div>
+          <div class="profile-stats">
+            <div class="profile-stat"><div class="profile-stat-num">3</div><div class="profile-stat-label">Listings</div></div>
+            <div class="profile-stat"><div class="profile-stat-num">4.9</div><div class="profile-stat-label">Rating</div></div>
+            <div class="profile-stat"><div class="profile-stat-num">12</div><div class="profile-stat-label">Sales</div></div>
+          </div>
+          <button class="btn-edit-profile">Edit Profile</button>
+          <button class="btn-post" style="width:100%;margin-top:10px;border-radius:100px;padding:12px;font-size:14px;justify-content:center;" onclick="openModal('post')">+ Post New Listing</button>
+        </div>
+      </div>
+      <div>
+        <div class="profile-tabs">
+          <div class="profile-tab active" onclick="setProfileTab('listings',this)">My Listings</div>
+          <div class="profile-tab" onclick="setProfileTab('saved',this)">Saved</div>
+          <div class="profile-tab" onclick="setProfileTab('messages',this)">Messages</div>
+        </div>
+        <div id="profileContent"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================== MODALS ============================== -->
+
+<!-- Login Modal -->
+<div class="modal-overlay" id="modal-login" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Welcome back 👋</span>
+      <button class="modal-close" onclick="closeModal('login')">✕</button>
+    </div>
+    <div class="modal-tabs">
+      <div class="modal-tab active" onclick="switchAuthTab('login')">Log In</div>
+      <div class="modal-tab" onclick="switchAuthTab('signup')">Sign Up</div>
+    </div>
+    <div class="modal-body">
+      <div id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="you@example.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="Enter your password"/>
+        </div>
+        <button class="btn-full" onclick="doLogin()">Log In to Kadibs Hub</button>
+        <div style="text-align:center;margin-top:14px;font-size:13px;color:var(--gray3);">Forgot your password? <span style="color:var(--blue-mid);cursor:pointer;font-weight:700;">Reset it</span></div>
+      </div>
+      <div id="signupForm" style="display:none;">
+        <div class="form-group">
+          <label class="form-label">I am a...</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+            <div class="type-option selected" onclick="selectAccountType(this,'individual')" id="typeInd">
+              <div class="type-option-icon">👤</div>
+              <div class="type-option-label">Individual</div>
+            </div>
+            <div class="type-option" onclick="selectAccountType(this,'business')" id="typeBiz">
+              <div class="type-option-icon">🏢</div>
+              <div class="type-option-label">Business</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Jane" id="signupFirst"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Doe" id="signupLast"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="you@example.com"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ottawa Area</label>
+          <select class="form-select" id="signupArea">
+            <option value="">Select your area...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" placeholder="Create a strong password"/>
+        </div>
+        <button class="btn-full" onclick="doSignup()">Create My Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal-overlay" id="modal-signup" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Join Kadibs Hub 🚀</span>
+      <button class="modal-close" onclick="closeModal('signup')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Account Type</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px;">
+          <div class="type-option selected" id="su2typeInd" onclick="selectAccountType2(this,'individual')">
+            <div class="type-option-icon">👤</div>
+            <div class="type-option-label">Individual</div>
+          </div>
+          <div class="type-option" id="su2typeBiz" onclick="selectAccountType2(this,'business')">
+            <div class="type-option-icon">🏢</div>
+            <div class="type-option-label">Business</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="Jane"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name / Business</label>
+          <input type="text" class="form-input" placeholder="Doe"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Ottawa Area</label>
+        <select class="form-select" id="signupArea2"></select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" placeholder="At least 8 characters"/>
+      </div>
+      <button class="btn-full" onclick="doSignup()">Create Account — It's Free!</button>
+      <div style="text-align:center;margin-top:14px;font-size:13px;color:var(--gray3);">Already have an account? <span style="color:var(--blue-mid);cursor:pointer;font-weight:700;" onclick="closeModal('signup');openModal('login');">Log in</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Post Listing Modal -->
+<div class="modal-overlay" id="modal-post" style="display:none;">
+  <div class="modal" style="max-width:580px;">
+    <div class="modal-header">
+      <span class="modal-title">Post a Listing</span>
+      <button class="modal-close" onclick="closeModal('post')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">What are you listing?</label>
+        <div class="type-selector">
+          <div class="type-option selected" onclick="selectListingType(this,'product')" id="ltProduct">
+            <div class="type-option-icon">📦</div>
+            <div class="type-option-label">Product</div>
+          </div>
+          <div class="type-option" onclick="selectListingType(this,'service')" id="ltService">
+            <div class="type-option-icon">🛠️</div>
+            <div class="type-option-label">Service</div>
+          </div>
+          <div class="type-option" onclick="selectListingType(this,'learning')" id="ltLearning">
+            <div class="type-option-icon">🎓</div>
+            <div class="type-option-label">Learning</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Listing Title</label>
+        <input type="text" class="form-input" placeholder="e.g. French Tutoring for Beginners" id="postTitle"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description</label>
+        <textarea class="form-textarea" placeholder="Describe your product, service or course in detail..." id="postDesc"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Price ($)</label>
+          <input type="number" class="form-input" placeholder="0.00" id="postPrice"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Ottawa Area</label>
+          <select class="form-select" id="postArea"></select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tags (comma separated)</label>
+        <input type="text" class="form-input" placeholder="e.g. tutoring, french, beginner" id="postTags"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Cover Image</label>
+        <div class="upload-zone" onclick="showToast('Image upload feature coming soon!')">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text">Click to upload an image</div>
+          <div class="upload-sub">PNG, JPG or WEBP · Max 5MB</div>
+        </div>
+      </div>
+      <button class="btn-full" onclick="postListing()">Publish Listing →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">✅ <span id="toastMsg">Done!</span></div>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+const AREAS = [
+  {id:'downtown',name:'Downtown Ottawa',icon:'🏛️',count:312},
+  {id:'kanata',name:'Kanata',icon:'💻',count:189},
+  {id:'barrhaven',name:'Barrhaven',icon:'🏘️',count:143},
+  {id:'gloucester',name:'Gloucester',icon:'🌳',count:98},
+  {id:'gatineau',name:'Gatineau',icon:'🌉',count:122},
+  {id:'nepean',name:'Nepean',icon:'🏫',count:87},
+  {id:'orleans',name:'Orléans',icon:'🌷',count:76},
+  {id:'aylmer',name:'Aylmer',icon:'🏡',count:54},
+  {id:'stittsville',name:'Stittsville',icon:'🌾',count:43},
+  {id:'hintonburg',name:'Hintonburg',icon:'🎨',count:67},
+  {id:'westboro',name:'Westboro',icon:'☕',count:92},
+  {id:'vanier',name:'Vanier',icon:'🌍',count:61}
+];
+
+const TAGS_ALL = ['Tech','Food','Fashion','Fitness','Education','Home','Arts','Business','Health','Kids','Automotive','Legal'];
+
+const SELLERS_DB = [
+  {id:1,name:'TechOttawa Solutions',type:'Business',area:'kanata',avatar:'TO',rating:4.9,listings:14,sales:203,desc:'Web development, IT support and digital marketing for Ottawa businesses.'},
+  {id:2,name:'Marie Leclair',type:'Individual',area:'gatineau',avatar:'ML',rating:4.8,listings:6,sales:87,desc:'Certified French & English bilingual tutor. Online and in-person sessions.'},
+  {id:3,name:'Capital Crafts',type:'Business',area:'westboro',avatar:'CC',rating:4.7,listings:22,sales:315,desc:'Handmade Ottawa artisan goods — jewelry, ceramics, and home décor.'},
+  {id:4,name:'FitLife Ottawa',type:'Business',area:'barrhaven',avatar:'FL',rating:4.9,listings:8,sales:129,desc:'Personal training, group classes and nutrition coaching.'},
+  {id:5,name:'Amara Osei',type:'Individual',area:'orleans',avatar:'AO',rating:5.0,listings:4,sales:42,desc:'Graphic design, branding, and social media content for small businesses.'},
+  {id:6,name:'GreenThumb Landscapes',type:'Business',area:'nepean',avatar:'GT',rating:4.6,listings:11,sales:94,desc:'Lawn care, snow removal, and landscaping for residential Ottawa.'},
+];
+
+const LISTINGS_DB = [
+  {id:1,type:'product',title:'Handmade Ceramic Mugs — Ottawa Series',seller:'Capital Crafts',sellerId:3,area:'westboro',areaName:'Westboro',price:38,priceUnit:'each',rating:4.8,reviews:42,tags:['Arts','Home'],emoji:'☕',desc:'Beautifully hand-thrown ceramic mugs featuring Ottawa landmarks. Each piece is one-of-a-kind, food-safe, dishwasher-friendly. Perfect gift or keepsake.'},
+  {id:2,type:'service',title:'French / English Bilingual Tutoring',seller:'Marie Leclair',sellerId:2,area:'gatineau',areaName:'Gatineau',price:55,priceUnit:'/hr',rating:5.0,reviews:31,tags:['Education'],emoji:'📚',desc:'Certified bilingual tutor with 10+ years experience. Tailored sessions for all levels — students, adults, workplace French programs.'},
+  {id:3,type:'learning',title:'Full-Stack Web Dev Bootcamp — Ottawa',seller:'TechOttawa Solutions',sellerId:1,area:'kanata',areaName:'Kanata',price:299,priceUnit:'/course',rating:4.9,reviews:58,tags:['Tech','Education'],emoji:'💻',desc:'12-week intensive bootcamp covering React, Node.js, databases and deployment. Includes mentorship, project portfolio, and job referrals.'},
+  {id:4,type:'service',title:'Personal Training & Nutrition Plan',seller:'FitLife Ottawa',sellerId:4,area:'barrhaven',areaName:'Barrhaven',price:80,priceUnit:'/session',rating:4.9,reviews:77,tags:['Fitness','Health'],emoji:'💪',desc:'Certified personal trainers offering one-on-one and group sessions. Custom meal plans included. In-person or virtual available.'},
+  {id:5,type:'product',title:'Local Honey — Pure Ottawa Valley',seller:'Valley Farms Co.',sellerId:0,area:'stittsville',areaName:'Stittsville',price:18,priceUnit:'/jar',rating:4.7,reviews:22,tags:['Food'],emoji:'🍯',desc:'Raw, unfiltered wildflower honey from Ottawa Valley beehives. 500ml jars. No additives. Available in regular, creamed, and cinnamon.'},
+  {id:6,type:'learning',title:'Digital Marketing for Small Biz',seller:'Amara Osei',sellerId:5,area:'orleans',areaName:'Orléans',price:149,priceUnit:'/course',rating:5.0,reviews:19,tags:['Business','Tech'],emoji:'📱',desc:'Self-paced 8-module course: social media, SEO, email marketing, and paid ads. Designed specifically for Ottawa small business owners.'},
+  {id:7,type:'service',title:'Lawn Care & Snow Removal Package',seller:'GreenThumb Landscapes',sellerId:6,area:'nepean',areaName:'Nepean',price:120,priceUnit:'/month',rating:4.6,reviews:88,tags:['Home'],emoji:'🌿',desc:'Year-round property maintenance starting from $120/month. Includes weekly mow, hedge trimming, fall cleanup, and snow clearing.'},
+  {id:8,type:'product',title:'Handcrafted Sterling Silver Earrings',seller:'Capital Crafts',sellerId:3,area:'westboro',areaName:'Westboro',price:65,priceUnit:'/pair',rating:4.8,reviews:35,tags:['Arts','Fashion'],emoji:'💎',desc:'Hand-forged 925 sterling silver earrings. Available in 6 Ottawa-inspired designs. Hypoallergenic. Gift boxed.'},
+  {id:9,type:'learning',title:'Beginner Pottery Workshop',seller:'Capital Crafts',sellerId:3,area:'westboro',areaName:'Westboro',price:85,priceUnit:'/session',rating:4.7,reviews:26,tags:['Arts'],emoji:'🏺',desc:'2.5-hour hands-on wheel throwing class for beginners. Includes all materials. Small group of max 6 students. Take home your creation!'},
+  {id:10,type:'service',title:'Brand Identity & Logo Design',seller:'Amara Osei',sellerId:5,area:'orleans',areaName:'Orléans',price:450,priceUnit:'/project',rating:5.0,reviews:14,tags:['Business','Arts'],emoji:'🎨',desc:'Full branding package: logo, colour palette, typography guide, business card design. 3 rounds of revisions. 5-day turnaround.'},
+  {id:11,type:'product',title:'Kids Wooden Learning Toys — Ottawa Made',seller:'Little Timber Co.',sellerId:0,area:'downtown',areaName:'Downtown Ottawa',price:42,priceUnit:'each',rating:4.9,reviews:61,tags:['Kids','Education'],emoji:'🧸',desc:'Educational wooden toys crafted in Ottawa. Includes shape sorters, number boards, and alphabet puzzles. Non-toxic finish, ages 1-6.'},
+  {id:12,type:'service',title:'Tax Prep & Bookkeeping — Small Business',seller:'Capital Accounting',sellerId:0,area:'downtown',areaName:'Downtown Ottawa',price:200,priceUnit:'/filing',rating:4.8,reviews:44,tags:['Business','Legal'],emoji:'🧾',desc:'CPA-certified accountants specializing in small business tax returns, quarterly bookkeeping, and HST filings for Ottawa entrepreneurs.'},
+];
+
+/* ============================================================
+   STATE
+============================================================ */
+let currentTab = 'all';
+let currentArea = 'all';
+let currentView = 'home';
+let isLoggedIn = false;
+let currentUser = {name:'Jane Doe', initials:'JD', area:'downtown', type:'Individual'};
+let listingsData = [...LISTINGS_DB];
+let filteredListings = [...LISTINGS_DB];
+let currentSort = 'recent';
+
+/* ============================================================
+   VIEWS
+============================================================ */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.getElementById('tabsBar').style.display = (name==='browse'||name==='sellers') ? 'block' : 'none';
+  document.getElementById('sellersTabBtn').style.display = name==='sellers' ? 'flex' : 'none';
+  currentView = name;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(name==='browse') renderBrowse();
+  if(name==='sellers') renderSellers();
+  if(name==='profile') renderProfile();
+}
+
+/* ============================================================
+   TABS
+============================================================ */
+function setTab(tab, el) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  currentTab = tab;
+  if(tab==='seller') { showView('sellers'); return; }
+  filteredListings = applyFilters();
+  renderBrowse();
+}
+
+function setTabAndBrowse(tab) {
+  showView('browse');
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if(b.textContent.toLowerCase().includes(tab==='product'?'product':tab==='service'?'service':'learning')) b.classList.add('active');
+  });
+  filteredListings = applyFilters();
+  renderBrowse();
+}
+
+/* ============================================================
+   FILTERS
+============================================================ */
+function applyFilters() {
+  let list = [...listingsData];
+  if(currentTab !== 'all') list = list.filter(l => l.type === currentTab);
+  if(currentArea !== 'all') list = list.filter(l => l.area === currentArea);
+  const minP = parseFloat(document.getElementById('priceMin')?.value)||0;
+  const maxP = parseFloat(document.getElementById('priceMax')?.value)||Infinity;
+  list = list.filter(l => l.price >= minP && l.price <= maxP);
+  if(currentSort==='rating') list.sort((a,b) => b.rating-a.rating);
+  else if(currentSort==='price-low') list.sort((a,b) => a.price-b.price);
+  else if(currentSort==='price-high') list.sort((a,b) => b.price-a.price);
+  return list;
+}
+
+function filterByArea(val) {
+  currentArea = val;
+  document.querySelectorAll('.sidebar-option').forEach(o => {
+    o.classList.toggle('selected', o.dataset.area===val);
+  });
+  filteredListings = applyFilters();
+  renderBrowse();
+}
+
+function filterBySort(val) { currentSort = val; filteredListings = applyFilters(); renderBrowse(); }
+function filterByPrice() { filteredListings = applyFilters(); renderBrowse(); }
+
+function handleSearch(q) {
+  if(!q) { filteredListings = applyFilters(); renderBrowse(); return; }
+  const qLow = q.toLowerCase();
+  filteredListings = listingsData.filter(l =>
+    l.title.toLowerCase().includes(qLow) ||
+    l.seller.toLowerCase().includes(qLow) ||
+    l.tags.some(t => t.toLowerCase().includes(qLow)) ||
+    l.areaName.toLowerCase().includes(qLow)
+  );
+  if(currentView!=='browse') showView('browse');
+  else renderBrowse();
+}
+
+/* ============================================================
+   RENDER CARD
+============================================================ */
+function renderCard(l) {
+  const badgeClass = l.type==='product'?'product':l.type==='service'?'service':'learning';
+  const badgeLabel = l.type.charAt(0).toUpperCase()+l.type.slice(1);
+  return `
+    <div class="card" onclick="showDetail(${l.id})">
+      <div class="card-img">
+        <div class="card-img-placeholder">${l.emoji}</div>
+        <div class="card-badge ${badgeClass}">${badgeLabel}</div>
+        <div class="card-fav">🤍</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${l.title}</div>
+        <div class="card-seller">
+          <div class="seller-avatar-sm">${l.seller.charAt(0)}</div>
+          <span class="seller-name">${l.seller}</span>
+        </div>
+        <div class="card-location">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${l.areaName}
+        </div>
+        <div class="card-tags">${l.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-footer">
+          <div class="card-price">$${l.price}<span>${l.priceUnit}</span></div>
+          <div class="card-rating"><span class="stars">★</span>${l.rating} (${l.reviews})</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ============================================================
+   RENDER HOME
+============================================================ */
+function renderHome() {
+  // Areas grid
+  const ag = document.getElementById('homeAreasGrid');
+  if(ag) ag.innerHTML = AREAS.slice(0,8).map(a => `
+    <div class="area-card" onclick="filterByArea('${a.id}');showView('browse')">
+      <div class="area-icon">${a.icon}</div>
+      <div class="area-name">${a.name}</div>
+      <div class="area-count">${a.count} listings</div>
+    </div>`).join('');
+  // Featured
+  const fg = document.getElementById('homeFeaturedGrid');
+  if(fg) fg.innerHTML = listingsData.sort((a,b)=>b.rating-a.rating).slice(0,4).map(renderCard).join('');
+}
+
+/* ============================================================
+   RENDER BROWSE
+============================================================ */
+function renderBrowse() {
+  filteredListings = applyFilters();
+  const grid = document.getElementById('browseGrid');
+  const empty = document.getElementById('browseEmpty');
+  const meta = document.getElementById('browseMeta');
+  if(grid) grid.innerHTML = filteredListings.map(renderCard).join('');
+  if(empty) empty.style.display = filteredListings.length===0?'block':'none';
+  if(grid) grid.style.display = filteredListings.length===0?'none':'grid';
+  if(meta) meta.textContent = `${filteredListings.length} listing${filteredListings.length!==1?'s':''} found`;
+  renderSidebarAreas();
+  renderSidebarTags();
+  renderAreaSelect();
+}
+
+function renderSidebarAreas() {
+  const el = document.getElementById('sidebarAreas');
+  if(!el) return;
+  el.innerHTML = `<div class="sidebar-option ${currentArea==='all'?'selected':''}" data-area="all" onclick="filterByArea('all')">
+    All Areas <span class="sidebar-count">${listingsData.length}</span>
+  </div>` + AREAS.map(a => {
+    const cnt = listingsData.filter(l=>l.area===a.id).length;
+    return cnt ? `<div class="sidebar-option ${currentArea===a.id?'selected':''}" data-area="${a.id}" onclick="filterByArea('${a.id}')">
+      ${a.icon} ${a.name} <span class="sidebar-count">${cnt}</span>
+    </div>` : '';
+  }).join('');
+}
+
+function renderSidebarTags() {
+  const el = document.getElementById('sidebarTags');
+  if(!el) return;
+  el.innerHTML = TAGS_ALL.map(t => {
+    const cnt = listingsData.filter(l=>l.tags.includes(t)).length;
+    return cnt ? `<div class="sidebar-option" onclick="searchByTag('${t}')">${t} <span class="sidebar-count">${cnt}</span></div>` : '';
+  }).join('');
+}
+
+function searchByTag(tag) {
+  handleSearch(tag);
+}
+
+function renderAreaSelect() {
+  const el = document.getElementById('areaSelect');
+  if(!el || el.children.length > 1) return;
+  AREAS.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a.id; opt.textContent = `${a.icon} ${a.name}`;
+    el.appendChild(opt);
+  });
+}
+
+/* ============================================================
+   DETAIL VIEW
+============================================================ */
+function showDetail(id) {
+  const l = LISTINGS_DB.find(x=>x.id===id);
+  if(!l) return;
+  const seller = SELLERS_DB.find(s=>s.id===l.sellerId);
+  document.getElementById('detailContent').innerHTML = `
+    <div>
+      <div class="detail-img">${l.emoji}</div>
+      <div class="detail-tags">
+        <span class="card-badge ${l.type}" style="position:static;">${l.type.charAt(0).toUpperCase()+l.type.slice(1)}</span>
+        ${l.tags.map(t=>`<span class="tag">${t}</span>`).join('')}
+        <span style="display:flex;align-items:center;gap:4px;font-size:13px;color:var(--gray3);margin-left:auto;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${l.areaName}
+        </span>
+      </div>
+      <h1 class="detail-title">${l.title}</h1>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+        <div class="seller-avatar-sm" style="width:32px;height:32px;font-size:14px;">${l.seller.charAt(0)}</div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:var(--dark);">${l.seller}</div>
+          ${seller?`<div style="font-size:12px;color:var(--gray3);">${seller.type} · ${seller.desc.slice(0,50)}...</div>`:''}
+        </div>
+      </div>
+      <div class="detail-desc">${l.desc}</div>
+      <div style="display:flex;align-items:center;gap:6px;margin-top:20px;padding:16px;background:var(--gray);border-radius:10px;">
+        <span style="color:var(--amber);font-size:18px;">★</span>
+        <span style="font-size:18px;font-weight:800;color:var(--dark);">${l.rating}</span>
+        <span style="font-size:14px;color:var(--gray3);">(${l.reviews} reviews)</span>
+      </div>
+    </div>
+    <div>
+      <div class="contact-card">
+        <div style="font-size:13px;color:var(--gray3);margin-bottom:4px;">Price</div>
+        <div class="contact-price">$${l.price}<span>${l.priceUnit}</span></div>
+        <div style="border-top:1px solid var(--gray2);margin:16px 0;"></div>
+        <div style="font-size:13px;color:var(--dark2);line-height:1.8;">
+          <div>📍 ${l.areaName}</div>
+          <div>⭐ ${l.rating} rating</div>
+          <div>💬 ${l.reviews} reviews</div>
+          ${l.type==='learning'?'<div>🎓 Includes certificate</div>':''}
+          ${l.type==='service'?'<div>✅ Insured & verified</div>':''}
+        </div>
+        <button class="btn-contact-main" onclick="showToast('Message sent to ${l.seller}! 📬')">Contact ${l.seller}</button>
+        <button class="btn-save" onclick="showToast('Saved to your favourites ❤️')">Save Listing</button>
+        <div style="text-align:center;font-size:12px;color:var(--gray3);margin-top:12px;">🔒 Safe & secure communication</div>
+      </div>
+    </div>`;
+  showView('detail');
+}
+
+/* ============================================================
+   SELLERS
+============================================================ */
+function renderSellers() {
+  const grid = document.getElementById('sellersGrid');
+  if(!grid) return;
+  grid.innerHTML = SELLERS_DB.map(s => `
+    <div class="card" style="cursor:pointer;" onclick="showToast('Viewing ${s.name}&apos;s profile')">
+      <div class="card-body" style="padding:24px;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+          <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--blue-light),var(--blue-deep));display:flex;align-items:center;justify-content:center;color:#fff;font-size:22px;font-weight:800;flex-shrink:0;">${s.avatar}</div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);">${s.name}</div>
+            <div style="font-size:12px;color:var(--gray3);">${s.type} · ${AREAS.find(a=>a.id===s.area)?.name||s.area}</div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--dark2);line-height:1.6;margin-bottom:16px;">${s.desc}</div>
+        <div style="display:flex;gap:16px;padding-top:14px;border-top:1px solid var(--gray2);">
+          <div style="text-align:center;flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark);">${s.listings}</div>
+            <div style="font-size:11px;color:var(--gray3);">Listings</div>
+          </div>
+          <div style="text-align:center;flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark);">${s.sales}</div>
+            <div style="font-size:11px;color:var(--gray3);">Sales</div>
+          </div>
+          <div style="text-align:center;flex:1;">
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark);">★${s.rating}</div>
+            <div style="font-size:11px;color:var(--gray3);">Rating</div>
+          </div>
+        </div>
+        <button style="width:100%;margin-top:14px;background:var(--gray);border:none;border-radius:100px;padding:10px;font-size:13px;font-weight:700;color:var(--dark2);cursor:pointer;" onclick="event.stopPropagation();showToast('Message sent to ${s.name}! 📬')">Contact Seller</button>
+      </div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   PROFILE
+============================================================ */
+function renderProfile() {
+  if(!isLoggedIn) { openModal('login'); return; }
+  document.getElementById('profileAvatarLg').textContent = currentUser.initials;
+  document.getElementById('profileName').textContent = currentUser.name;
+  document.getElementById('profileType').textContent = `Individual Seller · ${AREAS.find(a=>a.id===currentUser.area)?.name||'Ottawa'}`;
+  setProfileTab('listings', document.querySelector('.profile-tab'));
+}
+
+function setProfileTab(tab, el) {
+  document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const pc = document.getElementById('profileContent');
+  if(tab==='listings') {
+    const myListings = listingsData.slice(0,3);
+    pc.innerHTML = `<div class="listings-grid">${myListings.map(renderCard).join('')}</div>
+      <button class="btn-post" style="margin:0 auto;display:flex;border-radius:100px;padding:12px 28px;" onclick="openModal('post')">+ Add New Listing</button>`;
+  } else if(tab==='saved') {
+    pc.innerHTML = `<div class="empty-state"><div class="empty-icon">❤️</div><div class="empty-title">No saved listings yet</div><div class="empty-sub">Browse and save listings you love</div></div>`;
+  } else {
+    pc.innerHTML = `<div class="empty-state"><div class="empty-icon">💬</div><div class="empty-title">No messages yet</div><div class="empty-sub">When sellers reply, you'll see it here</div></div>`;
+  }
+}
+
+/* ============================================================
+   MODALS
+============================================================ */
+function openModal(name) {
+  if(name==='post' && !isLoggedIn) { openModal('login'); showToast('Please log in to post a listing'); return; }
+  if(name==='profile' && !isLoggedIn) { openModal('login'); return; }
+  document.getElementById('modal-'+name).style.display='flex';
+  populateAreaSelects();
+}
+
+function closeModal(name) { document.getElementById('modal-'+name).style.display='none'; }
+
+document.addEventListener('click', e => {
+  if(e.target.classList.contains('modal-overlay')) {
+    document.querySelectorAll('.modal-overlay').forEach(m => m.style.display='none');
+  }
+});
+
+function switchAuthTab(tab) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('signupForm').style.display = tab==='signup'?'block':'none';
+}
+
+function selectAccountType(el, type) {
+  document.querySelectorAll('#loginForm .type-option, #signupForm .type-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function selectAccountType2(el, type) {
+  document.querySelectorAll('#modal-signup .type-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function selectListingType(el, type) {
+  document.querySelectorAll('#modal-post .type-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function doLogin() {
+  isLoggedIn = true;
+  closeModal('login');
+  document.getElementById('navAuthButtons').style.display = 'none';
+  document.getElementById('navUserArea').style.display = 'flex';
+  showToast('Welcome back to Kadibs Hub! 🎉');
+}
+
+function doSignup() {
+  isLoggedIn = true;
+  const first = document.getElementById('signupFirst')?.value || 'New';
+  const last = document.getElementById('signupLast')?.value || 'User';
+  currentUser.name = `${first} ${last}`.trim();
+  currentUser.initials = (first.charAt(0)+(last.charAt(0)||'')).toUpperCase();
+  document.getElementById('navAvatar').textContent = currentUser.initials;
+  closeModal('login');
+  closeModal('signup');
+  document.getElementById('navAuthButtons').style.display = 'none';
+  document.getElementById('navUserArea').style.display = 'flex';
+  showToast('Account created! Welcome to Kadibs Hub 🚀');
+}
+
+function postListing() {
+  const title = document.getElementById('postTitle').value;
+  const desc = document.getElementById('postDesc').value;
+  const price = parseFloat(document.getElementById('postPrice').value)||0;
+  const area = document.getElementById('postArea').value;
+  if(!title) { showToast('Please enter a listing title'); return; }
+  const selectedType = document.querySelector('#modal-post .type-option.selected .type-option-label')?.textContent?.toLowerCase()||'product';
+  const emojis = {product:'📦',service:'🛠️',learning:'🎓'};
+  const newListing = {
+    id: listingsData.length+1, type:selectedType, title, seller:currentUser.name, sellerId:99,
+    area:area||'downtown', areaName:AREAS.find(a=>a.id===area)?.name||'Ottawa',
+    price, priceUnit: selectedType==='service'?'/hr':selectedType==='learning'?'/course':'/each',
+    rating:0, reviews:0, tags:[], emoji:emojis[selectedType]||'📦', desc:desc||'No description provided.'
+  };
+  listingsData.unshift(newListing);
+  filteredListings = applyFilters();
+  closeModal('post');
+  showToast('Listing published successfully! 🎉');
+  showView('browse');
+}
+
+function populateAreaSelects() {
+  ['postArea','signupArea','signupArea2'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.children.length <= 1) {
+      el.innerHTML = '<option value="">Select area...</option>';
+      AREAS.forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a.id; opt.textContent = `${a.icon} ${a.name}`;
+        el.appendChild(opt);
+      });
+    }
+  });
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3200);
+}
+
+/* ============================================================
+   INIT
+============================================================ */
+renderHome();
+renderBrowse();
+</script>
+</body>
+</html>
